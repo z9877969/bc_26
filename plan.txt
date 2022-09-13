@@ -1,15 +1,21 @@
-0) install creat-react-app
+0) icons, ProductsListItems -> images -> defaultProps
+1) inline styles
+2) vanila css/scss
+2) modules css/sass, composes
+3) @import-normalize
+4) styled-component
 
-Install reactjs code snippets, React devtools
 
-1) Що таке реакт, для чого та коли використовуеться
-2) MPA vs SPA (+ -)
-3) Virtual DOM
-4) Що таке компоненти та як подiлити iнтерфейс
-5) jsx and React.createElement()
-6) Functional component (first render Header)
-7) js code in jsx
-8) one container(div, Fragment, <>)
-9) Props, (destr props) PropTypes default props (npm i prop-types)
-10) Create cardsContainer component
-11) Render collection and key 
+clsx(
+  "class-1",
+  "class-2",
+  condition-3 && "class-3",
+  condition-4 && "class-4"
+)
+
+clsx(
+  "alert",
+  variant,
+  "is-outlined": outlined,
+  "is-elevated": elevated
+)
