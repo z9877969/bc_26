@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { List, Item, Price } from "./ProductsList.styled";
 import "./ProductsList.css";
 
-const ProductsList = ({ productsFromMain }) => {
+const ProductsList = ({ productsFromMain, addToCart }) => {
   return (
     <List color="red">
       {productsFromMain.map((product, i) => {
@@ -21,7 +21,11 @@ const ProductsList = ({ productsFromMain }) => {
                 <span className="products__currency">{product.currency}</span>
               )}
             </div>
-            <button className="products__btn-buy" type="button">
+            <button
+              onClick={() => addToCart(product)}
+              className="products__btn-buy"
+              type="button"
+            >
               Купити
             </button>
           </Item>
@@ -47,6 +51,11 @@ ProductsList.propTypes = {
 
 export default ProductsList;
 
-// true && 25 -> 25
+// const fn = () => {
+//   return {};
+// };
 
-// false && 32 -> false
+// const a1 = fn();
+// const a2 = fn();
+
+// React.createElement("li", {}, React.createElement)

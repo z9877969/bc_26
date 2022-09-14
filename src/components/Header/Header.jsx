@@ -3,7 +3,7 @@ import "./Header.css";
 import { logoImg } from "../../assets/img";
 import sprite from "../../assets/icons/sprite.svg";
 
-const Header = () => {
+const Header = ({ openCart }) => {
   return (
     <header className="header">
       <Container>
@@ -15,7 +15,7 @@ const Header = () => {
           <span className="header__user-email">user@mail.com</span>
         </div>
         <div className="header__cart-info">
-          <button type="button" className="header__btn-cart">
+          <button onClick={openCart} type="button" className="header__btn-cart">
             <svg>
               <use href={sprite + "#icon-cart"}></use>
             </svg>

@@ -5,13 +5,16 @@ import Container from "../Container/Container";
 import { Wrapper, MainBlock } from "./Main.styled";
 
 const Main = (props) => {
-  const { productsFromApp } = props;
+  const { productsFromApp, addToCart } = props;
   return (
     <MainBlock>
       <Container title="Our Products">
         <Wrapper>
           <Filter />
-          <ProductsList productsFromMain={productsFromApp} />
+          <ProductsList
+            productsFromMain={productsFromApp}
+            addToCart={addToCart}
+          />
         </Wrapper>
       </Container>
     </MainBlock>
