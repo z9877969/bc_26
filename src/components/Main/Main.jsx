@@ -2,16 +2,19 @@ import PropTypes from "prop-types";
 import Filter from "../Filter/Filter";
 import ProductsList from "../ProductsList/ProductsList";
 import Container from "../Container/Container";
+import { Wrapper, MainBlock } from "./Main.styled";
 
 const Main = (props) => {
   const { productsFromApp } = props;
   return (
-    <main>
+    <MainBlock>
       <Container title="Our Products">
-        <Filter />
-        <ProductsList productsFromMain={productsFromApp} />
+        <Wrapper>
+          <Filter />
+          <ProductsList productsFromMain={productsFromApp} />
+        </Wrapper>
       </Container>
-    </main>
+    </MainBlock>
   );
 };
 

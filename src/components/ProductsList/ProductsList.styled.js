@@ -1,18 +1,11 @@
 import styled from "styled-components";
 
-export const Title = styled.h2`
-    font-size: ${props => props.fontSize}px
-`
-
 export const List = styled.ul`
-  ${(props) => {
-    console.log(props);
-  }}
-
   list-style: none;
-  padding: 0;
-  margin: 0 auto;
   width: 330px;
+  padding: 0;
+  margin: 0;
+  margin-left: 30px;
   background-color: ${(props) => {
     return props.color;
   }};

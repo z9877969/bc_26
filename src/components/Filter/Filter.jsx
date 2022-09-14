@@ -3,7 +3,7 @@ import s from "./Filter.module.scss";
 
 const Filter = () => {
   return (
-    <div className={s.filter}>
+    <div className={s.container}>
       <ul className={s.list}>
         <li className={s.item}>
           <CheckboxInput name="filter" value="apple" id="apple" label="Apple" />

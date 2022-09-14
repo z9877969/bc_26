@@ -1,21 +1,9 @@
-0) icons, ProductsListItems -> images -> defaultProps
-1) inline styles
-2) vanila css/scss
-2) modules css/sass, composes
-3) @import-normalize
-4) styled-component
+// counter
+1) events
+2) statefull vs stateless
+// shop
+3) open cart
+4) add product vulue
+5) add product to cart
 
-
-clsx(
-  "class-1",
-  "class-2",
-  condition-3 && "class-3",
-  condition-4 && "class-4"
-)
-
-clsx(
-  "alert",
-  variant,
-  "is-outlined": outlined,
-  "is-elevated": elevated
-)
+6) filter

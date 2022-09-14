@@ -1,12 +1,9 @@
 import PropTypes from "prop-types";
-import { List, Item, Price, Title } from "./ProductsList.styled";
+import { List, Item, Price } from "./ProductsList.styled";
 import "./ProductsList.css";
 
 const ProductsList = ({ productsFromMain }) => {
-  return (<>
-  
-    <Title fontSize="24">Title-1</Title>
-    <Title fontSize="45">Title-1</Title>
+  return (
     <List color="red">
       {productsFromMain.map((product, i) => {
         return (
@@ -20,9 +17,6 @@ const ProductsList = ({ productsFromMain }) => {
               <Price isSmallPrice={Number(product.price) < 10000}>
                 {product.price ? product.price : "Ціна відсутня"}
               </Price>
-              <Price fontSize={i * 2} >
-                {product.price ? product.price : "Ціна відсутня"}
-              </Price>
               {product.price && (
                 <span className="products__currency">{product.currency}</span>
               )}
@@ -34,7 +28,6 @@ const ProductsList = ({ productsFromMain }) => {
         );
       })}
     </List>
-    </>
   );
 };
 

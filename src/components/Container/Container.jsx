@@ -1,16 +1,22 @@
-const style = {
+const wrapperStyles = {
   display: "flex",
+  flexWrap: "wrap",
   minWidth: "940px",
   justifyContent: "space-around",
   paddingLeft: "20px",
   paddingRight: "20px",
 };
 
+const titleStyles = {
+  textAlign: "center",
+  margin: 0,
+  padding: "16px 0",
+};
+
 const Container = ({ children, title }) => {
-  const bgImgUrl = "https://...";
   return (
-    <div style={{ ...style, backgroundImage: `url(${bgImgUrl})` }}>
-      {title && <h2>{title}</h2>}
+    <div style={wrapperStyles}>
+      {title && <h2 style={titleStyles}>{title}</h2>}
       {children}
     </div>
   );
