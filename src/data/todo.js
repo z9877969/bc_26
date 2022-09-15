@@ -7,6 +7,7 @@ export const todo = [
     title: "Title-1",
     descr: "Description for title - 1",
     isDoneStatus: false,
+    priority: "low",
   },
   {
     id: uuidv4(),
@@ -14,6 +15,7 @@ export const todo = [
     title: "Title-2",
     descr: "Description for title - 2",
     isDoneStatus: false,
+    priority: "low",
   },
   {
     id: uuidv4(),
@@ -21,6 +23,7 @@ export const todo = [
     title: "Title-3",
     descr: "Description for title - 3",
     isDoneStatus: false,
+    priority: "low",
   },
   {
     id: uuidv4(),
@@ -28,5 +31,6 @@ export const todo = [
     title: "Title-4",
     descr: "Description for title - 4",
     isDoneStatus: false,
+    priority: "low",
   },
 ];
