@@ -1,71 +1,27 @@
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
-import Cart from "./components/Cart/Cart";
-import products from "./data/products.json";
-import "./App.css";
 import { Component } from "react";
-// import Counter from "./components/Counter/Counter";
+import Navigation from "./components/Navigation/Navigation";
+import TodoPage from "./components/TodoPage/TodoPage";
+import "./App.css";
 
 class App extends Component {
-  static defaultProps = {
-    a: 54,
-    initialCount: false,
-  };
-
-  // static propTypes = {
-
-  // }
-
   state = {
-    isCartOpen: this.props.initialCount,
-    a: this.props.a,
-    cartProducts: [],
+    activePage: "todo",
   };
 
-  // openCart = () => {
-  //   this.setState({ isCartOpen: true });
-  // };
-
-  // closeCart = () => {
-  //   this.setState({ isCartOpen: false });
-  // };
-
-  toggleCart = () => {
-    this.setState((prevState) => ({ isCartOpen: !prevState.isCartOpen }));
-  };
-
-  addToCart = (product) => {
-    this.setState((prev) => ({
-      cartProducts: [...prev.cartProducts, product],
-    }));
+  handleOpenActivePage = (activePage) => {
+    this.setState({ activePage: activePage });
   };
 
   render() {
-    const { isCartOpen, cartProducts } = this.state;
+    const { activePage } = this.state;
     return (
       <>
-        <Header openCart={this.toggleCart} />
-        <Main addToCart={this.addToCart} productsFromApp={products} />
-        {isCartOpen && (
-          <Cart
-            isCartOpen={isCartOpen}
-            products={cartProducts}
-            closeCart={this.toggleCart}
-          />
-        )}
-        {/* <Counter /> */}
+        <Navigation handleOpenActivePage={this.handleOpenActivePage} />
+        {activePage === "todo" && <TodoPage />}
+        {activePage === "home" && <h1>Welcome to our amazing app!!!</h1>}
       </>
     );
   }
 }
 
 export default App;
-
-// App.propTypes = {
-
-// }
-
-// const a = false;
-// const b = !a // !false -> true
-
-// new Class({})
