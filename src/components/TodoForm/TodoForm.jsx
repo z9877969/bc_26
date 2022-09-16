@@ -1,52 +1,54 @@
 import { Component } from "react";
+import { FormStyled } from "./TodoForm.styled";
+import { Formik, Form } from "formik";
 import { v4 as uuidv4 } from "uuid";
 import clsx from "clsx";
 import s from "./TodoForm.module.scss";
+const initialState = {
+  date: "2022-09-15",
+  title: "",
+  descr: "",
+  priority: "low",
+};
 
-class TodoForm extends Component {
-  state = {
-    date: "2022-09-15",
-    title: "",
-    descr: "",
-    priority: "low",
-  };
-
-  handleChange = (e) => {
-    const { name, value } = e.target;
-    console.dir(e.target);
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(this.props);
-    this.props.addTodo({ ...this.state, isDoneStatus: false, id: uuidv4() });
-  };
-
-  render() {
-    const { date, title, descr, priority } = this.state;
-
-    return (
-      <>
-        <form className={s.form} onSubmit={this.handleSubmit}>
+const TodoForm = ({ addTodo }) => {
+  return (
+    <Formik
+      initialValues={{
+        date: "2022-09-15",
+        // title: "",
+        // descr: "",
+        priority: "low",
+      }}
+      onSubmit={(values, actions) => {
+        addTodo({
+          ...values,
+          isDoneStatus: false,
+          id: uuidv4(),
+        });
+        actions.resetForm();
+      }}
+    >
+      {(props) => (
+        <FormStyled className={s.form}>
           <label className={s.label}>
             <span> Date </span>
             <input
               className={s.input}
               type="date"
-              value={date}
+              value={props.values.date}
               name="date"
-              onChange={this.handleChange}
+              onChange={props.handleChange}
             />
           </label>
           <label className={s.label}>
             <span> Title </span>
             <input
               className={s.input}
-              value={title}
+              value={props.values.title}
               type="text"
               name="title"
-              onChange={this.handleChange}
+              onChange={props.handleChange}
             />
           </label>
           <label className={s.label}>
@@ -55,8 +57,8 @@ class TodoForm extends Component {
               className={s.input}
               type="text"
               name="descr"
-              value={descr}
-              onChange={this.handleChange}
+              value={props.values.descr}
+              onChange={props.handleChange}
             />
           </label>
 
@@ -68,8 +70,8 @@ class TodoForm extends Component {
                 type="radio"
                 name="priority"
                 value="low"
-                checked={priority === "low"}
-                onChange={this.handleChange}
+                checked={props.values.priority === "low"}
+                onChange={props.handleChange}
               />
               <label className={clsx(s.label, s.radio)} htmlFor="formRadioLow">
                 Low
@@ -82,8 +84,8 @@ class TodoForm extends Component {
                 type="radio"
                 name="priority"
                 value="medium"
-                checked={priority === "medium"}
-                onChange={this.handleChange}
+                checked={props.values.priority === "medium"}
+                onChange={props.handleChange}
               />
               <label
                 className={clsx(s.label, s.radio)}
@@ -99,8 +101,8 @@ class TodoForm extends Component {
                 type="radio"
                 name="priority"
                 value="high"
-                checked={priority === "high"}
-                onChange={this.handleChange}
+                checked={props.values.priority === "high"}
+                onChange={props.handleChange}
               />
               <label className={clsx(s.label, s.radio)} htmlFor="formRadioHigh">
                 High
@@ -110,19 +112,95 @@ class TodoForm extends Component {
           <button className={s.submit} type="submit">
             Ok
           </button>
-        </form>
-      </>
-    );
-  }
-}
+        </FormStyled>
+      )}
+    </Formik>
+  );
+};
 
 export default TodoForm;
 
-// const obj = {
-//   key: "654654"
-// }
+{
+  /* <>
+  <form className={s.form} onSubmit={this.handleSubmit}>
+    <label className={s.label}>
+      <span> Date </span>
+      <input
+        className={s.input}
+        type="date"
+        value={date}
+        name="date"
+        onChange={this.handleChange}
+      />
+    </label>
+    <label className={s.label}>
+      <span> Title </span>
+      <input
+        className={s.input}
+        value={title}
+        type="text"
+        name="title"
+        onChange={this.handleChange}
+      />
+    </label>
+    <label className={s.label}>
+      <span> Description </span>
+      <input
+        className={s.input}
+        type="text"
+        name="descr"
+        value={descr}
+        onChange={this.handleChange}
+      />
+    </label>
 
-// const b = obj.key; // "654654"
-// const objKey = "key"
-// const d = obj["key"] // "654654"
-// const c = obj[objKey] // -> obj.key = "654654"
+    <div className={s.labelWrapper}>
+      <div className={s.radioWrapper}>
+        <input
+          id="formRadioLow"
+          className={s.input}
+          type="radio"
+          name="priority"
+          value="low"
+          checked={priority === "low"}
+          onChange={this.handleChange}
+        />
+        <label className={clsx(s.label, s.radio)} htmlFor="formRadioLow">
+          Low
+        </label>
+      </div>
+      <div className={s.radioWrapper}>
+        <input
+          id="formRadioMedium"
+          className={s.input}
+          type="radio"
+          name="priority"
+          value="medium"
+          checked={priority === "medium"}
+          onChange={this.handleChange}
+        />
+        <label className={clsx(s.label, s.radio)} htmlFor="formRadioMedium">
+          Medium
+        </label>
+      </div>
+      <div className={s.radioWrapper}>
+        <input
+          id="formRadioHigh"
+          className={s.input}
+          type="radio"
+          name="priority"
+          value="high"
+          checked={priority === "high"}
+          onChange={this.handleChange}
+        />
+        <label className={clsx(s.label, s.radio)} htmlFor="formRadioHigh">
+          High
+        </label>
+      </div>
+    </div>
+    <button className={s.submit} type="submit">
+      Ok
+    </button>
+  </form>
+</>; */
+}

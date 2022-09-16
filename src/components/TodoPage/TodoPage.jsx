@@ -5,8 +5,7 @@ import { todo as todoList } from "../../data/todo";
 
 class TodoPage extends Component {
   state = {
-    // linkS - 1, linkS - 2
-    todo: todoList, // link-1, link-2
+    todo: todoList,
     priorityFilter: "all",
   };
 

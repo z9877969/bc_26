@@ -1,0 +1,34 @@
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip: rect(0 0 0 0);
+}
+
+.label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
+.label::before {
+  display: inline-block;
+  content: "";
+  width: 10px;
+  height: 10px;
+  margin-right: 15px;
+  align-self: center;
+  border: 2px solid #212121;
+  border-radius: 4px;
+  /* background-color: olive; */
+}
+
+.input:checked + .label::before {
+  border: 2px solid #d9e5f1;
+  background-color: #0f7be0;
+}
