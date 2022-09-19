@@ -2,13 +2,30 @@ import { Component } from "react";
 import ToDoForm from "../TodoForm/TodoForm";
 import ToDoList from "../TodoList/TodoList";
 import { todo as todoList } from "../../data/todo";
+import s from "./TodoPage.module.scss";
 
 class TodoPage extends Component {
-  state = {
-    // linkS - 1, linkS - 2
-    todo: todoList, // link-1, link-2
+  static defaultProps = {
     priorityFilter: "all",
   };
+
+  state = {
+    todo: [], //todoList
+    priorityFilter: "all",
+    isLoading: false,
+  };
+
+  componentDidMount() {
+    this.setState({
+      todo: JSON.parse(localStorage.getItem("todo")) || todoList,
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.todo !== this.state.todo) {
+      localStorage.setItem("todo", JSON.stringify(this.state.todo));
+    }
+  }
 
   addTodo = (newTodo) => {
     this.setState((prev) => ({
@@ -42,21 +59,35 @@ class TodoPage extends Component {
   };
 
   render() {
+    console.log("RENDER_TodoPage");
     const { priorityFilter } = this.state;
     const filteredTodo = this.filterTodo();
     return (
       <>
-        <ToDoForm addTodo={this.addTodo} />
-        <select
-          name="priorityFilter"
-          value={priorityFilter}
-          onChange={this.handleFilterChange}
+        <button
+          type="button"
+          onClick={() =>
+            this.setState((prev) => ({ isLoading: !prev.isLoading }))
+          }
         >
-          <option value="all">All</option>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
+          Start is loading
+        </button>
+        {this.state.isLoading && <h1>Loading...</h1>}
+        <ToDoForm addTodo={this.addTodo} priorityFilter={priorityFilter} />
+        <div className={s.priorityFilter}>
+          <p className={s.title}>Priority filter:</p>
+          <select
+            className={s.select}
+            name="priorityFilter"
+            value={priorityFilter}
+            onChange={this.handleFilterChange}
+          >
+            <option value="all">All</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
         <ToDoList
           todo={filteredTodo}
           removeTodo={this.removeTodo}
