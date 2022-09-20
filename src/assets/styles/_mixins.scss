@@ -1,3 +1,8 @@
+@mixin container {
+  max-width: 1000px;
+  padding: 15px;
+  margin: 0 auto;
+}
 @mixin visually-hidden {
   position: absolute;
   white-space: nowrap;
@@ -10,14 +15,6 @@
   clip-path: inset(50%);
   margin: -1px;
 }
-
-@mixin active-element($_selector) {
-  #{$_selector} {
-    transform: scale(1);
-    transition: transform 75ms linear;
-  }
-
-  #{$_selector}:active {
-    transform: scale(0.96);
-  }
+@mixin secondary-bg-color {
+  background-color: var(--secondary-bg-color);
 }

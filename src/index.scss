@@ -1,5 +1,4 @@
-// @import-normalize;
-@import "./assets/styles/mixins.scss";
+@import "./assets/styles/main";
 
 body {
   margin: 0;
@@ -15,23 +14,12 @@ code {
     monospace;
 }
 
-ul,
-p,
-li,
-h1,
-h2,
-h3 {
-  margin: 0;
-}
-
 ul {
-  padding: 0;
   list-style: none;
+  padding-left: 0;
 }
 
 img {
   display: block;
   width: 100%;
 }
-
-@include active-element("button");

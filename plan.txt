@@ -1,2 +1,7 @@
-1) life-cycles method - https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
-2) localStorage
+1. plaсe for request
+2. state managment
+3. devide code
+4. scroll
+scrollBy() // window.innerHeight
+scrollTo() // snapshot
+
