@@ -23,6 +23,18 @@ const Navigation = ({ handleOpenActivePage }) => {
             className={s.navLink}
             onClick={(e) => {
               e.preventDefault();
+              handleOpenActivePage("counter");
+            }}
+          >
+            Counter
+          </a>
+        </li>
+        <li className={s.navItem}>
+          <a
+            href="/"
+            className={s.navLink}
+            onClick={(e) => {
+              e.preventDefault();
               handleOpenActivePage("todo");
             }}
           >
