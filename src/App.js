@@ -3,13 +3,14 @@ import Navigation from "./components/Navigation/Navigation";
 import TodoPage from "./components/TodoPage/TodoPage";
 import CounterPage from "./components/CounterPage/CounterPage";
 import "./App.css";
+import MenuList from "./components/Test/Test";
 
 const App = () => {
   // state = {
   //   activePage: "counter",
   //   a: 0,
   // };
-  const [activePage, setActivePage] = useState("todo");
+  const [activePage, setActivePage] = useState("home");
 
   const handleOpenActivePage = (activePage) => {
     // this.setState({ activePage: activePage });
@@ -21,7 +22,8 @@ const App = () => {
       <Navigation handleOpenActivePage={handleOpenActivePage} />
       {activePage === "todo" && <TodoPage />}
       {activePage === "counter" && <CounterPage />}
-      {activePage === "home" && <h1>Welcome to our amazing app!!!</h1>}
+      {/* {activePage === "home" && <h1>Welcome to our amazing app!!!</h1>} */}
+      {activePage === "home" && <MenuList />}
     </>
   );
 };
