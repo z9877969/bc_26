@@ -13,52 +13,6 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 // };
 
 const TodoForm = ({ addTodo }) => {
-  // state = {
-  //   date: "2022-09-15",
-  //   title: "",
-  //   descr: "",
-  //   priority: "", // this.props.priorityFilter
-  // };
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevProps.priorityFilter !== this.props.priorityFilter) {
-  //     this.setState({ priority: this.props.priorityFilter });
-  //   }
-  // }
-  // form without object
-  // const [date, setDate] = useState("2022-09-15");
-  // const [title, setTitle] = useState("");
-  // const [descr, setDescr] = useState("");
-  // const [priority, setPriority] = useState("");
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   // this.setState({ [name]: value });
-  //   switch (name) {
-  //     case "date":
-  //       setDate(value);
-  //       break;
-  //     case "title":
-  //       setTitle(value);
-  //       break;
-  //     case "descr":
-  //       setDescr(value);
-  //       break;
-  //     case "priority":
-  //       setPriority(value);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
-
-  // form with object
-  // const [form, setForm] = useState({
-  //   date: "2022-09-15",
-  //   title: "",
-  //   descr: "",
-  //   priority: "",
-  // });
   const [form, setForm] = useLocalStorage("form", {
     date: "2022-09-15",
     title: "",

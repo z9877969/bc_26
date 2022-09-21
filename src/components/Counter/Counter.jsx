@@ -5,9 +5,6 @@ const Counter = () => {
   const [count, setCount] = useState(0);
 
   const decrement = () => {
-    // setCount((prevCount) => prevCount - 5); // 0 - 5 -> -5
-    // setCount((prevCount) => prevCount - 5); // -5 - 5 -> -10
-    // setCount((prevCount) => prevCount - 5); // -10 - 5 -> -15
     setCount((prev) => prev - 5);
   };
 

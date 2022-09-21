@@ -1,46 +1,17 @@
-import { Component } from "react";
+import { useState, useEffect } from "react";
 import s from "../TodoList/TodoList.module.scss";
 import sprite from "../../assets/icons/sprite.svg";
-import { useState } from "react";
-import { useEffect } from "react";
 
-const TodoItem = (props) => {
-  // state = {
-  //   count: 0,
-  // };
-
-  // intervalId = null;
-
-  // closeMethode = (e) => {
-  //   if (e.code === "Escape") {
-  //     console.log("Esc");
-
-  //   }
-  // }
-
-  // componentDidMount() {
-  //   this.intervalId = setInterval(() => {
-  //     console.log("object");
-  //     this.setState((prev) => ({ count: prev.count + 1 }));
-  //   }, 500);
-  //   window.addEventListener("keydown", this.closeMethode);
-  // }
-
-  // componentWillUnmount() {
-  //   clearInterval(this.intervalId);
-  //   window.removeEventListener("keydown", this.closeMethode)
-  // }
-
-  const {
-    id,
-    date,
-    title,
-    descr,
-    priority,
-    isDoneStatus,
-    changeTodoStatus,
-    removeTodo,
-  } = props;
+const TodoItem = ({
+  id,
+  date,
+  title,
+  descr,
+  priority,
+  isDoneStatus,
+  changeTodoStatus,
+  removeTodo,
+}) => {
 
   const [count, setCount] = useState(0);
 
@@ -50,12 +21,9 @@ const TodoItem = (props) => {
     }, 2000);
 
     return () => {
-      console.log("UNMOUNT");
       clearInterval(intervalId);
     };
   }, []);
-
-  // const { count } = this.state;
 
   return (
     <li className={s.toDoItem}>
@@ -73,11 +41,13 @@ const TodoItem = (props) => {
         />
         Done
       </label>
-      {<button onClick={(event) => removeTodo(id)} className={s.todoBtn}>
-        <svg className={s.icon}>
-          <use href={sprite + "#icon-trash"}></use>
-        </svg>
-      </button>}
+      {
+        <button onClick={(event) => removeTodo(id)} className={s.todoBtn}>
+          <svg className={s.icon}>
+            <use href={sprite + "#icon-trash"}></use>
+          </svg>
+        </button>
+      }
     </li>
   );
 };

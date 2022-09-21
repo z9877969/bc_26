@@ -5,48 +5,19 @@ import { todo as todoList } from "../../data/todo";
 import s from "./TodoPage.module.scss";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
-
 const TodoPage = () => {
-  // state = {
-  //   todo: [],
-  //   priorityFilter: "all",
-  // };
-
-  // componentDidMount() {
-  //   this.setState({
-  //     todo: JSON.parse(localStorage.getItem("todo")) || todoList,
-  //   });
-  // }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.todo !== this.state.todo) {
-  //     localStorage.setItem("todo", JSON.stringify(this.state.todo));
-  //   }
-  // }
-
-  // const [todo, setTodo] = useState(
-  //   JSON.parse(localStorage.getItem("todo")) || []
-  // );
-  const [todo, setTodo] = useLocalStorage("todo",[]);
+  const [todo, setTodo] = useLocalStorage("todo", todoList);
   const [priorityFilter, setPriorityFilter] = useState("all");
-  const [isOpen, setIsOpen] = useState(false);
 
   const addTodo = (newTodo) => {
-    // this.setState((prev) => ({
-    //   todo: [...prev.todo, newTodo],
-    // }));
     setTodo((prevTodo) => [...prevTodo, newTodo]);
   };
 
   const removeTodo = (id) => {
-    // this.setState((prev) => ({
-    //   todo: prev.todo.filter((el) => el.id !== id),
-    // }));
     setTodo((prevTodo) => prevTodo.filter((todo) => todo.id !== id));
   };
 
   const handleFilterChange = (e) => {
-    // this.setState({ priorityFilter: e.target.value });
     setPriorityFilter(e.target.value);
   };
 
@@ -63,8 +34,6 @@ const TodoPage = () => {
       ),
     }));
   };
-
-  
 
   useEffect(() => {
     console.log(priorityFilter);
