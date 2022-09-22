@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import clsx from "clsx";
 import s from "./TodoForm.module.scss";
 import { useEffect } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { TodoContext } from "../../context/TodoProvider";
+import { ThemeContext } from "../../context/ThemProvider";
 
 // const hardCalculateFn = () => {
 //   let count = 0;
@@ -12,7 +14,12 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 //   }
 // };
 
-const TodoForm = ({ addTodo }) => {
+const TodoForm = () => {
+  const { addTodo } = useContext(TodoContext);
+  const { theme } = useContext(ThemeContext);
+
+  // console.log("TodoForm - ", theme);
+
   const [form, setForm] = useLocalStorage("form", {
     date: "2022-09-15",
     title: "",
