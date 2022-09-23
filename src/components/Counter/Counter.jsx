@@ -16,8 +16,6 @@ const Counter = () => {
 
   const reset = () => setCount(0);
 
-  console.log(count);
-
   return (
     <div className={s.container}>
       <h1 className={s.title}>Counter</h1>

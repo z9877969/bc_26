@@ -1,7 +1,11 @@
 .nav {
+  // position: fixed;
+  // z-index: 500;
+  // width: 100%;
   margin: 0;
   padding: 15px;
-  background-color: rgba(4, 53, 122, 0.9);
+  // background-color: rgba(4, 53, 122, 0.9);
+  background: linear-gradient(0deg, #566c50, #343323 65%);
 }
 
 .navList {

@@ -1,12 +1,14 @@
 import axios from "axios";
 
+export const pageSize = 10;
+
 export const searchNews = ({ query, page }) => {
   return axios
     .get("https://newsapi.org/v2/everything", {
       params: {
         q: query,
         page,
-        pageSize: 10,
+        pageSize,
         apiKey: "42ee593af8484a5a82756cb35b09ccd6",
       },
     })

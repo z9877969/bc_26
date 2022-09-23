@@ -1,26 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import clsx from "clsx";
+import { TodoContext } from "../../context/TodoProvider";
 import s from "./TodoForm.module.scss";
-import { useEffect } from "react";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
 
-// const hardCalculateFn = () => {
-//   let count = 0;
-//   for (let i = 0; i < 1e9; i += 1) {
-//     count += 1;
-//   }
-// };
+const TodoForm = () => {
+  const { addTodo } = useContext(TodoContext);
 
-const TodoForm = ({ addTodo }) => {
-  const [form, setForm] = useLocalStorage("form", {
+  const [form, setForm] = useState("form", {
     date: "2022-09-15",
     title: "",
     descr: "",
     priority: "",
   });
-
-  const [isBtnShow, setIsBtnShow] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,17 +31,9 @@ const TodoForm = ({ addTodo }) => {
   };
 
   const { date, title, descr, priority } = form;
-  // const value = hardCalculateFn();
-
-  useEffect(() => {
-    if (Object.values(form).every((el) => !!el)) {
-      setIsBtnShow(true);
-    }
-  }, [form]);
 
   return (
     <>
-      {isBtnShow && <button>Click</button>}
       <form className={s.form} onSubmit={handleSubmit}>
         <label className={s.label}>
           <span> Date </span>

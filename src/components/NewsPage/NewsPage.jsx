@@ -1,24 +1,25 @@
-import { Component } from "react";
-import SearchForm from "../components/SearchForm/SearchForm";
-import News from "./News/News";
+import SearchForm from "../SearchForm/SearchForm";
+import News from "../News/News";
+import { useState } from "react";
 
-class NewsPage extends Component {
-  state = {
-    query: "",
+const NewsPage = () => {
+  // state = {
+  //   query: "",
+  // };
+
+  const [query, setQuery] = useState("");
+
+  const changeQuery = (query) => {
+    // this.setState({ query });
+    setQuery(query);
   };
 
-  changeQuery = (query) => {
-    this.setState({ query });
-  };
-
-  render() {
-    return (
-      <>
-        <SearchForm changeQuery={this.changeQuery} />
-        <News query={this.state.query} />
-      </>
-    );
-  }
-}
+  return (
+    <div style={{ position: "relative" }}>
+      <SearchForm changeQuery={changeQuery} />
+      <News query={query} />
+    </div>
+  );
+};
 
 export default NewsPage;
