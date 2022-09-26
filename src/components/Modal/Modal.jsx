@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useCallback } from "react";
 import { createPortal } from "react-dom";
 import s from "./Modal.module.scss";
 

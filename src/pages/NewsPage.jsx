@@ -1,16 +1,11 @@
-import SearchForm from "../SearchForm/SearchForm";
-import News from "../News/News";
+import SearchForm from "../components/SearchForm/SearchForm";
+import News from "../components/News/News";
 import { useState } from "react";
 
 const NewsPage = () => {
-  // state = {
-  //   query: "",
-  // };
-
   const [query, setQuery] = useState("");
 
   const changeQuery = (query) => {
-    // this.setState({ query });
     setQuery(query);
   };
 

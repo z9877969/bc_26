@@ -1,8 +1,8 @@
 import s from "./Button.module.scss";
 
-const Button = ({ changePage }) => {
+const Button = ({ updatePage }) => {
   return (
-    <button className={s.btn} type="button" onClick={changePage}>
+    <button className={s.btn} type="button" onClick={updatePage}>
       More
     </button>
   );

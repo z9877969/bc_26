@@ -27,4 +27,12 @@
   border: 1px solid yellowgreen;
   border-radius: 5px;
   text-decoration: none;
+
+  .active {
+    background-color: red;
+  }
+
+  // :hover:not(:active) {
+  //   background-color: red;
+  // }
 }

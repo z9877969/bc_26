@@ -1,30 +1,31 @@
 import axios from "axios";
 
-export const pageSize = 10;
+export const pageSize = 6;
+const API_KEY = "42ee593af8484a5a82756cb35b09ccd6";
 
-export const searchNews = ({ query, page }) => {
+axios.defaults.baseURL = "https://newsapi.org/v2"
+
+export const getSearchNews = ({ query, page }) => {
   return axios
-    .get("https://newsapi.org/v2/everything", {
+    .get("/everything", {
       params: {
         q: query,
         page,
         pageSize,
-        apiKey: "42ee593af8484a5a82756cb35b09ccd6",
+        apiKey: API_KEY,
       },
     })
     .then(({ data }) => data.articles);
 };
 
-// export const searchNews = ({ query, page }) => {
-//   return axios
-//     .get("https://pixabay.com/api/", {
-//       params: {
-//         q: query,
-//         page,
-//         per_page: 10,
-//         key: "13965574-3ae6669f35304ffc6cddc1b72",
-//         image_type: "photo",
-//       },
-//     })
-//     .then(({ data }) => data.hits);
-// };
+export const getTopCountryNews = (country) => {
+  return axios
+    .get("/top-headlines", {
+      params: {
+        country,
+        pageSize,
+        apiKey: API_KEY,
+      },
+    })
+    .then((response) => response.data.articles); // news
+};
