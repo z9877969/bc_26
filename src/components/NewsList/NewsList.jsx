@@ -1,46 +1,15 @@
-import PropTypes from "prop-types";
-import { useEffect } from "react";
-import { useRef } from "react";
-import { pageSize } from "../../utils/newsApi";
-import s from "./NewsList.module.scss";
-
-const NewsList = ({ news, toggleModal = null }) => {
-  const scrolledElRef = useRef(null);
-
-  useEffect(() => {
-    scrolledElRef.current &&
-      scrolledElRef.current.scrollIntoView({
-        block: "start",
-        behavior: "smooth",
-      });
-  }, [news]);
-
+const NewsList = ({ news }) => {
   return (
-    <ul className={s.news}>
-      {news.map((item, idx, arr) => (
-        <li
-          ref={idx === arr.length - pageSize ? scrolledElRef : null}
-          key={idx}
-          className={s.item}
-          onClick={() => (toggleModal ? toggleModal(item) : null)}
-        >
-          <img className={s.img} src={item.urlToImage} alt="" />
-          <div className={s.textWrapper}>
-            <a href={item.url}>Link</a>
-            <h3 className={s.title}>{item.title}</h3>
-            <p className={s.author}>{item.author}</p>
-            <p className={s.date}>{item.publishedAt}</p>
-            <p className={s.descr}>{item.description}</p>
-          </div>
+    <ul>
+      {news.map(({ title, url }) => (
+        <li>
+          <a href={url} target="_blank" rel="noreferrer">
+            {title}
+          </a>
         </li>
       ))}
     </ul>
   );
-};
-
-NewsList.propTypes = {
-  news: PropTypes.array.isRequired,
-  toggleModal: PropTypes.func.isRequired,
 };
 
 export default NewsList;

@@ -1,31 +1,22 @@
+// https://newsapi.org/v2/everything?q=bitcoin&apiKey=42ee593af8484a5a82756cb35b09ccd6
 import axios from "axios";
 
-export const pageSize = 6;
 const API_KEY = "42ee593af8484a5a82756cb35b09ccd6";
+axios.defaults.baseURL = "https://newsapi.org/v2";
 
-axios.defaults.baseURL = "https://newsapi.org/v2"
-
-export const getSearchNews = ({ query, page }) => {
-  return axios
-    .get("/everything", {
+export const getSearchNewsApi = async (query, page) => {
+  try {
+    const { data } = await axios.get("/everything", {
       params: {
         q: query,
         page,
-        pageSize,
+        pageSize: 10,
         apiKey: API_KEY,
       },
-    })
-    .then(({ data }) => data.articles);
-};
-
-export const getTopCountryNews = (country) => {
-  return axios
-    .get("/top-headlines", {
-      params: {
-        country,
-        pageSize,
-        apiKey: API_KEY,
-      },
-    })
-    .then((response) => response.data.articles); // news
+    });
+    return data; // promiseResult with status fullfield
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
