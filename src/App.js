@@ -1,4 +1,4 @@
-import { Route, Routes, Outlet, useParams } from "react-router-dom";
+import { Route, Routes, Outlet, Navigate } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
 import TodoPage from "./pages/TodoPage";
 import CounterPage from "./pages/CounterPage";
@@ -6,22 +6,29 @@ import NewsPage from "./pages/NewsPage";
 import TopNewsPage from "./pages/TopNewsPage";
 import TopCountryNews from "./components/CountryNews/CountryNews";
 
-// const SomeComp = () => <h1>ContryNews with color RED</h1>;
-
-
+const MainWrapper = () => {
+  return (
+    <>
+      <Navigation />
+      <Outlet />
+    </>
+  );
+};
 
 const App = () => {
   return (
     <>
-      <Navigation />
       <Routes>
-        <Route path="/todo" element={<TodoPage />} />
-        <Route path="/counter" element={<CounterPage />} />
-        <Route path="/news" element={<NewsPage />} />
-        <Route path="/top-news" element={<TopNewsPage />}>
-          <Route path=":country" element={<TopCountryNews />} />
+        <Route path="/" element={<MainWrapper />}>
+          <Route index element={<h1>MainPage</h1>} />
+          <Route path="todo" element={<TodoPage />} />
+          <Route path="counter" element={<CounterPage />} />
+          <Route path="news" element={<NewsPage />} />
+          <Route path="top-news" element={<TopNewsPage />}>
+            <Route path=":country" element={<TopCountryNews />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/news" />} />
         </Route>
-        <Route path="*" element={<h1>Page not found</h1>} />
       </Routes>
     </>
   );

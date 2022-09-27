@@ -2,10 +2,10 @@ import PropTypes from "prop-types";
 import { Link, NavLink } from "react-router-dom";
 import s from "./Navigation.module.scss";
 
-const setActiveLink = (state) => {
-  console.log(state);
-  return !state.isActive ? s.navLink : `${s.navLink} ${s.active}`;
-};
+// const setActiveLink = (state) => {
+//   console.log(state);
+//   return !state.isActive ? s.navLink : `${s.navLink} ${s.active}`;
+// };
 
 const Navigation = () => {
   return (
