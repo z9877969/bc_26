@@ -21,7 +21,7 @@ const Navigation = () => {
       >
         Home
       </NavLink>
-      <NavLink style={setActiveStyle} to="/search-news?q=uyt#654">
+      <NavLink style={setActiveStyle} to="/search-news">
         SearchNews
       </NavLink>
       <NavLink style={setActiveStyle} to="/country-news">
