@@ -1,9 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const setActiveStyle = ({ isActive }) =>
   isActive ? { color: "red", fontWeight: "bold" } : null;
 
 const Navigation = () => {
+  const location = useLocation();
+
+  console.log(location);
+
   return (
     <nav
       style={{
@@ -24,7 +28,7 @@ const Navigation = () => {
       <NavLink style={setActiveStyle} to="/search-news">
         SearchNews
       </NavLink>
-      <NavLink style={setActiveStyle} to="/country-news">
+      <NavLink style={setActiveStyle} to="/country-news" state={location}>
         CountryNews
       </NavLink>
     </nav>
@@ -32,3 +36,10 @@ const Navigation = () => {
 };
 
 export default Navigation;
+
+// {
+//   pathname: "/country-news",
+//   search: "",
+//   hash: "",
+//   state: currentLocation
+// }
