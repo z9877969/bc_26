@@ -20,3 +20,25 @@ export const getSearchNewsApi = async (query, page) => {
     throw error;
   }
 };
+
+//  https://newsapi.org/v2/top-headlines?country=us&apiKey=42ee593af8484a5a82756cb35b09ccd6
+
+export const getCountryNews = async (country) => {
+  try {
+    const { data } = await axios.get("/top-headlines", {
+      params: {
+        country,
+        pageSize: 10,
+        apiKey: API_KEY,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// getCountryNews -> promise.fullfield/undefined/
+// getCountryNews -> promise.rejected/undefined/
+
+

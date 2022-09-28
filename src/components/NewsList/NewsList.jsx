@@ -1,14 +1,17 @@
-const NewsList = ({ news }) => {
+const NewsList = ({ news = [] }) => {
   return (
-    <ul>
-      {news.map(({ title, url }) => (
-        <li>
-          <a href={url} target="_blank" rel="noreferrer">
-            {title}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <>
+      <h1>NewsList</h1>
+      <ul>
+        {news.map(({ title, url }) => (
+          <li>
+            <a href={url} target="_blank" rel="noreferrer">
+              {title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 

@@ -3,6 +3,8 @@ import CountryNewsPage from "../pages/CountryNewsPage";
 import HomePage from "../pages/HomePage";
 import SearchNewsPage from "../pages/SearchNewsPage";
 import MainLayout from "./MainLayout";
+import NewsList from "../components/NewsList/NewsList";
+import CountryNewsList from "./CountryNewsList/CountryNewsList";
 
 const App = () => {
   return (
@@ -11,7 +13,9 @@ const App = () => {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/search-news" element={<SearchNewsPage />} />
-          <Route path="/country-news" element={<CountryNewsPage />} />
+          <Route path="/country-news" element={<CountryNewsPage />}>
+            <Route path=":country" element={<CountryNewsList />} />
+          </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
