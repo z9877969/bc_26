@@ -4,7 +4,7 @@ const NewsList = ({ news = [] }) => {
       <h1>NewsList</h1>
       <ul>
         {news.map(({ title, url }) => (
-          <li>
+          <li key={url}>
             <a href={url} target="_blank" rel="noreferrer">
               {title}
             </a>

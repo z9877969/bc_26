@@ -40,5 +40,3 @@ export const getCountryNews = async (country) => {
 
 // getCountryNews -> promise.fullfield/undefined/
 // getCountryNews -> promise.rejected/undefined/
-
-

@@ -1,19 +1,23 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useContext, useEffect, useState } from "react";
+import { LoaderContext } from "../../context/LoaderProvider";
 import { getCountryNews } from "../../utils/newsApi";
 import NewsList from "../NewsList/NewsList";
 
-const CountryNewsList = () => {
-  const { country } = useParams();
+const CountryNewsList = ({ match }) => {
+  const setIsLoading = useContext(LoaderContext);
+
   const [news, setNews] = useState([]);
 
+  const { country } = match.params;
+
   useEffect(() => {
-    if (!country) return;
+    setIsLoading(true);
     getCountryNews(country)
       .then((data) => setNews(data.articles))
-      .catch((err) => console.log(err));
-  }, [country]);
-  
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
+  }, [country, setIsLoading]);
+
   return <NewsList news={news} />;
 };
 

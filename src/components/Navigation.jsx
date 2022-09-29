@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from "react-router-dom";
 
-const setActiveStyle = ({ isActive }) =>
-  isActive ? { color: "red", fontWeight: "bold" } : null;
+// const setActiveStyle = ({ isActive }) =>
+//   isActive ? { color: "red", fontWeight: "bold" } : null;
 
 const Navigation = () => {
   const location = useLocation();
@@ -18,17 +18,19 @@ const Navigation = () => {
       }}
     >
       <NavLink
-        style={setActiveStyle}
-        // className={({ isActive }) => (isActive ? "s.link s.active" : "s.link")}
         to="/"
-        end
       >
         Home
       </NavLink>
-      <NavLink style={setActiveStyle} to="/search-news">
+      <NavLink
+        to="/search-news"
+      >
         SearchNews
       </NavLink>
-      <NavLink style={setActiveStyle} to="/country-news" state={location}>
+      <NavLink
+        to="/country-news"
+        state={location}
+      >
         CountryNews
       </NavLink>
     </nav>

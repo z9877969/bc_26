@@ -1,48 +1,33 @@
-import { useEffect, useState } from "react";
-import {
-  NavLink,
-  Outlet,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useState } from "react";
+import { NavLink, Route } from "react-router-dom";
+import CountryNewsList from "../components/CountryNewsList/CountryNewsList";
 import NewsList from "../components/NewsList/NewsList";
-import { getCountryNews } from "../utils/newsApi";
-// import NewsList from "../components/NewsList/NewsList";
 
-const CountryNewsPage = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+const CountryNewsPage = ({ match }) => {
+  
 
   return (
     <>
       <h1>CountryNewsPage</h1>
-      <button type="button" onClick={() => navigate(location.state)}>
-        GoBack
-      </button>
+      <button type="button">GoBack</button>
       <ul>
         <li>
-          {/* location -> {pathname: /country-news/ua, search: "", hash: "", state: "state from countryNews"} */}
-          <NavLink to="ua" state={location.state}>
-            UA
-          </NavLink>
+          <NavLink to={match.url + "/ua"}>UA</NavLink>
         </li>
         <li>
-          <NavLink to="us" state={location.state}>US</NavLink>
+          <NavLink to={match.url + "/us"}>US</NavLink>
         </li>
         <li>
-          <NavLink to="pl" state={location.state}>PL</NavLink>
+          <NavLink to={match.url + "/pl"}>PL</NavLink>
         </li>
         <li>
-          <NavLink to="fr" state={location.state}>FR</NavLink>
+          <NavLink to={match.url + "/fr"}>FR</NavLink>
         </li>
       </ul>
-      <Outlet />
-      {/* <Routes>
-        <Route path=":country" element={<NewsList news={news} />} />
-      </Routes> */}
+      <Route
+        path="/country-news/:country"
+        component={(routerProps) => <CountryNewsList {...routerProps} />}
+      />
     </>
   );
 };

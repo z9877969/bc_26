@@ -6,9 +6,9 @@ const MainLayout = () => {
   return (
     <>
       <Navigation />
-      {/* <Suspense fallback={<h1>Loading around outlet...</h1>}> */}
+      <Suspense fallback={<h1>Loading around outlet...</h1>}>
       <Outlet />
-      {/* </Suspense> */}
+      </Suspense>
     </>
   );
 };
