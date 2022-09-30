@@ -25,7 +25,7 @@ const Navigation = () => {
       >
         Home
       </NavLink>
-      <NavLink style={setActiveStyle} to="/search-news">
+      <NavLink style={setActiveStyle} to={{pathname: "/search-news"}}>
         SearchNews
       </NavLink>
       <NavLink style={setActiveStyle} to="/country-news" state={location}>

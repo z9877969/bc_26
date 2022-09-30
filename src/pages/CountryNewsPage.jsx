@@ -1,13 +1,5 @@
-import { useEffect, useState } from "react";
-import {
-  NavLink,
-  Outlet,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Suspense, useEffect, useState } from "react";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import NewsList from "../components/NewsList/NewsList";
 import { getCountryNews } from "../utils/newsApi";
 // import NewsList from "../components/NewsList/NewsList";
@@ -30,16 +22,24 @@ const CountryNewsPage = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="us" state={location.state}>US</NavLink>
+          <NavLink to="us" state={location.state}>
+            US
+          </NavLink>
         </li>
         <li>
-          <NavLink to="pl" state={location.state}>PL</NavLink>
+          <NavLink to="pl" state={location.state}>
+            PL
+          </NavLink>
         </li>
         <li>
-          <NavLink to="fr" state={location.state}>FR</NavLink>
+          <NavLink to="fr" state={location.state}>
+            FR
+          </NavLink>
         </li>
       </ul>
-      <Outlet />
+      <Suspense fallback={<h1>Loading CountryNewsList...</h1>}>
+        <Outlet />
+      </Suspense>
       {/* <Routes>
         <Route path=":country" element={<NewsList news={news} />} />
       </Routes> */}
