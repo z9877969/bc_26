@@ -1,66 +1,25 @@
-import PropTypes from "prop-types";
-import { useContext } from "react";
-import { ThemeContext } from "../../context/ThemProvider";
+import { NavLink } from "react-router-dom";
 import s from "./Navigation.module.scss";
 
-const Navigation = ({ handleOpenActivePage }) => {
-  const { setTheme } = useContext(ThemeContext);
-
+const Navigation = () => {
   return (
     <>
-      <button
-        onClick={() => {
-          setTheme((prev) => (prev === "light" ? "dark" : "light"));
-        }}
-      >
-        Theme
-      </button>
       <nav className={s.nav}>
         <ul className={s.navList}>
           <li className={s.navItem}>
-            <a
-              href="/"
-              className={s.navLink}
-              onClick={(e) => {
-                e.preventDefault();
-                handleOpenActivePage("home");
-              }}
-            >
-              Home
-            </a>
-          </li>
-          <li className={s.navItem}>
-            <a
-              href="/"
-              className={s.navLink}
-              onClick={(e) => {
-                e.preventDefault();
-                handleOpenActivePage("counter");
-              }}
-            >
+            <NavLink to="/counter" className={s.navLink}>
               Counter
-            </a>
+            </NavLink>
           </li>
           <li className={s.navItem}>
-            <a
-              href="/"
-              className={s.navLink}
-              onClick={(e) => {
-                e.preventDefault();
-                handleOpenActivePage("todo");
-              }}
-            >
+            <NavLink to="/todo" className={s.navLink}>
               Todo
-            </a>
+            </NavLink>
           </li>
         </ul>
       </nav>
     </>
   );
-};
-
-Navigation.propTypes = {
-  handleOpenActivePage: PropTypes.func.isRequired,
 };
 
 export default Navigation;
