@@ -1,7 +1,8 @@
 import clsx from "clsx";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../../redux/todo/todoActions";
+// import { addTodo } from "../../redux/todo/todoActions";
+import { addTodo } from "../../redux/todo/todoSlice";
 import s from "./TodoForm.module.scss";
 
 const TodoForm = () => {

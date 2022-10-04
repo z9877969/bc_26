@@ -1,14 +1,18 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionDecrement, actionIncrement, actionReset } from "../../redux/counter/counterActions";
+import {
+  actionDecrement,
+  actionIncrement,
+  actionReset,
+} from "../../redux/counter/counterActions";
 import s from "./Counter.module.scss";
 
 const Counter = () => {
   const dispatch = useDispatch();
-  const count = useSelector((state) => {
-    return state.count;
-  });
 
-  // console.log("dispatch :>> ", dispatch);
+  const [step, setStep] = useState(20);
+
+  const count = useSelector((state) => state.count);
 
   return (
     <div className={s.container}>
@@ -24,11 +28,15 @@ const Counter = () => {
         >
           -
         </button>
-        <button onClick={() => dispatch(actionReset())} className={s.btn} type="button">
+        <button
+          onClick={() => dispatch(actionReset())}
+          className={s.btn}
+          type="button"
+        >
           0
         </button>
         <button
-          onClick={() => dispatch(actionIncrement(50))}
+          onClick={() => dispatch(actionIncrement(step))}
           className={s.btn}
           type="button"
         >

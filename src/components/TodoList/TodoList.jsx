@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import TodoItem from "../TodoItem/TodoItem";
 import s from "./TodoList.module.scss";
-// import { todo } from "../../data/todo";
 
 const getFilteredTodo = (state) => {
   const { items, filter } = state.todo;

@@ -1,6 +1,6 @@
-import { combineReducers } from "redux";
+import { createReducer, combineReducers } from "@reduxjs/toolkit";
 import { todo } from "../../data/todo";
-import { TODO_ADD, TODO_FILTER, TODO_REMOVE } from "./todoConstants";
+import { addTodo, changeFilter, removeTodo } from "./todoActions";
 
 const setToLS = (key, data) => {
   localStorage.setItem(key, JSON.stringify(data));
@@ -10,35 +10,24 @@ const setToLS = (key, data) => {
 const getFromLS = (key, initialValue) =>
   JSON.parse(localStorage.getItem(key)) ?? initialValue;
 
-const itemsReducer = (state = getFromLS("todo", todo), action) => {
-  switch (action.type) {
-    case TODO_ADD:
-      const addedItems = [...state, action.payload];
-      return setToLS("todo", addedItems);
-    case TODO_REMOVE:
-      const removedItems = state.filter((el) => el.id !== action.payload);
-      return setToLS("todo", removedItems);
+const itemsReducer = createReducer([], {
+  [addTodo]: (state, { payload }) => {
+    return [...state, payload];
+  },
+  [removeTodo]: (state, { payload }) => state.filter((el) => el.id !== payload),
+});
 
-    default:
-      return state;
-  }
-};
+const filterReducer = createReducer("all", {
+  [changeFilter]: (_, { payload }) => payload,
+});
 
-const filterReducer = (state = "all", action) => {
-  switch (action.type) {
-    case TODO_FILTER:
-      return action.payload;
-
-    default:
-      return state;
-  }
-};
+// const reducer = (state = "all", action) => {
+//   return state
+// }
 
 const todoReducer = combineReducers({
   items: itemsReducer,
   filter: filterReducer,
 });
-
-// const fnReducer = (state = {items: todo, filter: ""}) => {}
 
 export default todoReducer;

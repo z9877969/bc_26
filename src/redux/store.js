@@ -1,27 +1,62 @@
-import { createStore, combineReducers } from "redux";
-import { composeWithDevTools } from "@redux-devtools/extension";
+import { configureStore } from "@reduxjs/toolkit";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import counterReducer from "./counter/counterReducer";
-import todoReducer from "./todo/todoReducer";
+// import todoReducer from "./todo/todoReducer";
+import todoReducer from "./todo/todoSlice";
 
-// const reducer = (state = { a: 21, b: [], c: true }, action) => {
-//   return { ...state, a: 25 };
+// const preloadedState = {
+//   todo: {
+//     items: [
+//       {
+//         id: 1,
+//         date: "2022-09-15",
+//         descr: "Description for title - 1",
+//         priority: "low",
+//       },
+//       {
+//         id: 2,
+//         date: "2022-09-15",
+//         descr: "Description for title - 2",
+//         priority: "low",
+//       },
+//     ],
+//     filter: "medium",
+//   },
 // };
 
-// const aReducer = (state = 21, action) => {
-//   return 25;
-// };
-// const bReducer = (state = [], action) => {
-//   return state;
-// };
-// const cReducer = (state = true, action) => {
-//   return state;
-// };
+const persistTodoConfig = {
+  key: "todo",
+  version: 1,
+  storage: storage,
+  // whitelist: ["items"],
+  blacklist: ["filter"],
+};
 
-const rootReducer = combineReducers({
-  count: counterReducer,
-  todo: todoReducer
+const persistedTodoReducer = persistReducer(persistTodoConfig, todoReducer);
+
+export const store = configureStore({
+  reducer: {
+    count: counterReducer,
+    todo: persistedTodoReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+  // preloadedState: preloadedState, // -> створює початковий стейт
+  devTools: process.env.NODE_ENV === "development",
 });
-// const fnReducer = (state = {count: 0, todo: {items: todo, filter: ""}}) => {}
 
-// export const store = createStore(reducer, composeWithDevTools());
-export const store = createStore(rootReducer, composeWithDevTools());
+export const persistor = persistStore(store);
