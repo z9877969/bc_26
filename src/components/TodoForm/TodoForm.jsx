@@ -1,8 +1,9 @@
 import clsx from "clsx";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { addTodo } from "../../redux/todo/todoActions";
-import { addTodo } from "../../redux/todo/todoSlice";
+// import { addTodo } from "../../redux/todo/todoSlice";
+import { addTodo } from "../../redux/todo/todoOperations";
+import { addTodoApi } from "../../utils/firebaseApi";
 import s from "./TodoForm.module.scss";
 
 const TodoForm = () => {
@@ -21,7 +22,8 @@ const TodoForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addTodo({ ...form, id: Date.now() }));
+
+    dispatch(addTodo(form));
   };
 
   const { date, descr, priority } = form;

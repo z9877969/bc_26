@@ -1,62 +1,49 @@
 import { configureStore } from "@reduxjs/toolkit";
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
+// import logger from "redux-logger";
 import counterReducer from "./counter/counterReducer";
-// import todoReducer from "./todo/todoReducer";
 import todoReducer from "./todo/todoSlice";
 
-// const preloadedState = {
-//   todo: {
-//     items: [
-//       {
-//         id: 1,
-//         date: "2022-09-15",
-//         descr: "Description for title - 1",
-//         priority: "low",
-//       },
-//       {
-//         id: 2,
-//         date: "2022-09-15",
-//         descr: "Description for title - 2",
-//         priority: "low",
-//       },
-//     ],
-//     filter: "medium",
-//   },
-// };
-
-const persistTodoConfig = {
-  key: "todo",
-  version: 1,
-  storage: storage,
-  // whitelist: ["items"],
-  blacklist: ["filter"],
+const logMiddleware = ({ dispatch, getState }) => {
+  return (next) => {
+    return (action) => {
+      console.group("actionType", action.type);
+      const prevState = getState();
+      console.log("prevState", prevState);
+      console.log("action ", action);
+      next(action); // -> action -> reducer
+      const nextState = getState(); // currentState
+      console.log("nextState", nextState);
+      console.groupEnd();
+    };
+  };
 };
 
-const persistedTodoReducer = persistReducer(persistTodoConfig, todoReducer);
+// const thunk =
+//   ({ dispatch, getState }) =>
+//   (next) =>
+//   (action) => {
+//     if (typeof action === "function") {
+//       action(dispatch, getState);
+//       return;
+//     }
+//     next(action);
+//   };
+
+// {
+//   // store
+//   let dispatch = () => {};
+//   let getState = () => {};
+//   let next = () => {};
+//   logMiddleware({ dispatch, getState })(next)(action);
+// }
 
 export const store = configureStore({
   reducer: {
     count: counterReducer,
-    todo: persistedTodoReducer,
+    todo: todoReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
-  // preloadedState: preloadedState, // -> створює початковий стейт
+  middleware: (gDM) => gDM()
+  // .concat(logMiddleware, thunk)
+  ,
   devTools: process.env.NODE_ENV === "development",
 });
-
-export const persistor = persistStore(store);

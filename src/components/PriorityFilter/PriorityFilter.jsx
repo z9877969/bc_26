@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-// import { changeFilter } from "../../redux/todo/todoActions";
 import { filterTodo } from "../../redux/todo/todoSlice";
 import s from "./PriorityFilter.module.scss";
 
