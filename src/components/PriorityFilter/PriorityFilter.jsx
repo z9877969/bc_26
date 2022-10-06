@@ -12,6 +12,8 @@ const PriorityFilter = () => {
     dispatch(filterTodo(value));
   };
 
+  console.log("TodoFilter");
+
   return (
     <div className={s.priorityFilter}>
       <p className={s.title}>Priority filter:</p>

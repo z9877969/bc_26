@@ -1,19 +1,16 @@
 import { useSelector } from "react-redux";
+import { getFilteredTodo } from "../../redux/todo/todoSelectors";
 import TodoItem from "../TodoItem/TodoItem";
 import s from "./TodoList.module.scss";
 
-const getFilteredTodo = (state) => {
-  const { items, filter } = state.todo;
-  if (filter === "all") return items;
-  return items.filter((el) => el.priority === filter);
-};
-
 const TodoList = () => {
-  const todo = useSelector(getFilteredTodo);
+  const filteredTodo = useSelector(getFilteredTodo);
+
+  console.log("TodoList");
 
   return (
     <ul className={s.container}>
-      {todo.map((todoItem) => (
+      {filteredTodo.map((todoItem) => (
         <TodoItem key={todoItem.id} {...todoItem} />
       ))}
     </ul>

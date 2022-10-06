@@ -1,31 +1,17 @@
-import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { addTodoApi, getTodoApi } from "../../utils/firebaseApi";
-
-// const addTodoPending = createAction("addTodo/pending");
-// const addTodoFullfield = createAction("addTodo/fullfield");
-// const addTodoRejected = createAction("addTodo/rejected");
-
-// const operation = (data) => {
-//   return (dispatch, getState) => {
-//     dispatch(addTodoPending());
-
-//     fetch()
-//       .then((resData) => dispatch(addTodoFullfield(resData)))
-//       .catch((err) => dispatch(addTodoRejected(err)));
-//   };
-// };
-
-// dispatch(addTodo("uytuyt"));
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  addTodoApi,
+  getTodoApi,
+  removeTodoApi,
+  updateTodoApi,
+} from "../../utils/firebaseApi";
 
 export const addTodo = createAsyncThunk("todo", async (data, thunkApi) => {
-  // { type: "todo/pending" }
   try {
     const todo = await addTodoApi(data);
-    // { type: "todo/fullfield", payload: data }
-    return todo; //  dispatch(addTodo.fulfilled(todo)))
+    return todo;
   } catch (error) {
-    // { type: "todo/rejected", payload: err.message }
-    return thunkApi.rejectWithValue(error.message); // dispatch(addTodoRejected(err))
+    return thunkApi.rejectWithValue(error.message);
   }
 });
 
@@ -37,3 +23,38 @@ export const getTodo = createAsyncThunk("todo/get", async (_, thunkApi) => {
     return thunkApi.rejectWithValue(error.message);
   }
 });
+
+export const removeTodo = createAsyncThunk(
+  "todo/remove",
+  async (id, { rejectWithValue }) => {
+    // console.log("thunkApi :>> ", thunkApi);
+    try {
+      const idResponse = await removeTodoApi(id);
+      return idResponse;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const editTodo = createAsyncThunk(
+  "todo/edit",
+  async (todo, { rejectWithValue }) => {
+    try {
+      const editedTodo = await updateTodoApi(todo);
+      return editedTodo;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// const operation = (data) => {
+//   return (dispatch, getState) => {
+//     dispatch("p")
+//     fetch().then(() => {dispatch("f")})
+//     .catch(dispatch("r"))
+//   }
+// }
+
+// dispatch(operation(21))

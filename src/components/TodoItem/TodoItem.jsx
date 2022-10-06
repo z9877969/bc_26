@@ -1,7 +1,9 @@
 import s from "../TodoList/TodoList.module.scss";
 import sprite from "../../assets/icons/sprite.svg";
 import { useDispatch } from "react-redux";
-import { removeTodo } from "../../redux/todo/todoSlice";
+// import { removeTodo } from "../../redux/todo/todoSlice";
+import { removeTodo } from "../../redux/todo/todoOperations";
+import { setEditedItem } from "../../redux/todo/todoSlice";
 
 const TodoItem = ({ id, date, descr, priority }) => {
   const dispatch = useDispatch();
@@ -14,6 +16,14 @@ const TodoItem = ({ id, date, descr, priority }) => {
       <button className={s.todoBtn} onClick={() => dispatch(removeTodo(id))}>
         <svg className={s.icon}>
           <use href={sprite + "#icon-trash"}></use>
+        </svg>
+      </button>
+      <button
+        className={s.todoBtn}
+        onClick={() => dispatch(setEditedItem({ id, date, descr, priority }))}
+      >
+        <svg className={s.icon}>
+          <use href={sprite + "#icon-edit-pencil"}></use>
         </svg>
       </button>
     </li>

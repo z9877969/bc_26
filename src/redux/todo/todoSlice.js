@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addTodo, getTodo } from "./todoOperations";
-
-console.log("addTodo.pending :>> ", addTodo.fulfilled({ a: "qwe" }));
+import { addTodo, editTodo, getTodo, removeTodo } from "./todoOperations";
 
 const todoSlice = createSlice({
   name: "todo",
@@ -10,13 +8,18 @@ const todoSlice = createSlice({
     filter: "all",
     isLoading: false,
     error: null,
+    theme: "light",
+    editedItem: null,
   },
   reducers: {
-    removeTodo(state, { payload }) {
-      state.items = state.items.filter((el) => el.id !== payload);
-    },
     filterTodo(state, { payload }) {
       state.filter = payload;
+    },
+    changeTheme(state) {
+      state.theme = state.theme === "light" ? "dark" : "light";
+    },
+    setEditedItem(state, { payload }) {
+      state.editedItem = payload;
     },
   },
   extraReducers: {
@@ -42,11 +45,36 @@ const todoSlice = createSlice({
       state.isLoading = false;
       state.error = payload;
     },
+    [removeTodo.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [removeTodo.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.items = state.items.filter((el) => el.id !== payload);
+    },
+    [removeTodo.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload;
+    },
+    [editTodo.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [editTodo.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.items = state.items.map((item) =>
+        item.id === payload.id ? payload : item
+      );
+      state.editedItem = null;
+    },
+    [editTodo.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload;
+    },
   },
 });
 
 const todoReducer = todoSlice.reducer;
 const todoActions = todoSlice.actions;
 
-export const { removeTodo, filterTodo } = todoActions;
+export const { filterTodo, changeTheme, setEditedItem } = todoActions;
 export default todoReducer;
