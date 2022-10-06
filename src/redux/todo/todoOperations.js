@@ -6,14 +6,26 @@ import {
   updateTodoApi,
 } from "../../utils/firebaseApi";
 
-export const addTodo = createAsyncThunk("todo", async (data, thunkApi) => {
-  try {
-    const todo = await addTodoApi(data);
-    return todo;
-  } catch (error) {
-    return thunkApi.rejectWithValue(error.message);
+export const addTodo = createAsyncThunk(
+  "todo",
+  async (data, thunkApi) => {
+    try {
+      const todo = await addTodoApi(data);
+      return todo;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  },
+  {
+    condition: (data, { getState }) => {
+      const { items } = getState().todo;
+      if (items.some((el) => el.title === data.title)) {
+        return false;
+      }
+      return true;
+    },
   }
-});
+);
 
 export const getTodo = createAsyncThunk("todo/get", async (_, thunkApi) => {
   try {
