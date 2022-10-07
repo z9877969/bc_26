@@ -2,23 +2,29 @@ import clsx from "clsx";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo, editTodo } from "../../redux/todo/todoOperations";
-import { getEditedItem, getTheme } from "../../redux/todo/todoSelectors";
-import { changeTheme } from "../../redux/todo/todoSlice";
-import { updateTodoApi } from "../../utils/firebaseApi";
+import {
+  useAddTodoMutation,
+  useUpdateTodoMutation,
+} from "../../redux/todo/todoApi";
+import { getEditedItem } from "../../redux/todo/todoSelectors";
+import { setEditedItem } from "../../redux/todo/todoSlice";
 import s from "./TodoForm.module.scss";
+
+const iS = {
+  date: "",
+  descr: "",
+  priority: "",
+};
 
 const TodoForm = () => {
   const dispatch = useDispatch();
 
-  const theme = useSelector(getTheme);
+  const [addTodo, { isLoading, error }] = useAddTodoMutation();
+  const [updateTodo] = useUpdateTodoMutation();
+
   const editedItem = useSelector(getEditedItem);
 
-  const [form, setForm] = useState({
-    date: "",
-    descr: "",
-    priority: "",
-  });
+  const [form, setForm] = useState(iS);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,28 +34,21 @@ const TodoForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    editedItem ? dispatch(editTodo(form)) : dispatch(addTodo(form));
+    const { id, ...data } = form;
+    editedItem ? updateTodo({ id, data }) : addTodo(form);
+    editedItem && dispatch(setEditedItem(null));
   };
-
-  console.log("TodoForm");
 
   useEffect(() => {
     editedItem && setForm(editedItem);
-    !editedItem &&
-      setForm({
-        date: "",
-        descr: "",
-        priority: "",
-      });
+    !editedItem && setForm(iS);
   }, [editedItem]);
 
   const { date, descr, priority } = form;
 
   return (
     <>
-      <button type="button" onClick={() => dispatch(changeTheme())}>
-        Click
-      </button>
+      {error && <p>{error.error}</p>}
       <form className={s.form} onSubmit={handleSubmit}>
         <label className={s.label}>
           <span> Date </span>
@@ -115,8 +114,9 @@ const TodoForm = () => {
             </label>
           </div>
         </div>
+
         <button className={s.submit} type="submit">
-          Ok
+          {isLoading ? "Loading..." : "Ok"}
         </button>
       </form>
     </>
