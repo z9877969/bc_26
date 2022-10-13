@@ -7,10 +7,12 @@ import {
 } from "../../utils/firebaseApi";
 
 export const addTodo = createAsyncThunk(
-  "todo",
+  "todo/add",
   async (data, thunkApi) => {
+    const { localId, idToken } = thunkApi.getState().auth;
+
     try {
-      const todo = await addTodoApi(data);
+      const todo = await addTodoApi({ todo: data, localId, idToken });
       return todo;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -19,7 +21,7 @@ export const addTodo = createAsyncThunk(
   {
     condition: (data, { getState }) => {
       const { items } = getState().todo;
-      if (items.some((el) => el.title === data.title)) {
+      if (items.some((el) => el.descr === data.descr)) {
         return false;
       }
       return true;
@@ -28,8 +30,10 @@ export const addTodo = createAsyncThunk(
 );
 
 export const getTodo = createAsyncThunk("todo/get", async (_, thunkApi) => {
+  const { localId, idToken } = thunkApi.getState().auth;
+
   try {
-    const todoItems = await getTodoApi();
+    const todoItems = await getTodoApi({ localId, idToken });
     return todoItems;
   } catch (error) {
     return thunkApi.rejectWithValue(error.message);
@@ -38,10 +42,11 @@ export const getTodo = createAsyncThunk("todo/get", async (_, thunkApi) => {
 
 export const removeTodo = createAsyncThunk(
   "todo/remove",
-  async (id, { rejectWithValue }) => {
-    // console.log("thunkApi :>> ", thunkApi);
+  async (id, { rejectWithValue, getState }) => {
+    const { localId, idToken } = getState().auth;
+
     try {
-      const idResponse = await removeTodoApi(id);
+      const idResponse = await removeTodoApi({ id, localId, idToken });
       return idResponse;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -60,13 +65,3 @@ export const editTodo = createAsyncThunk(
     }
   }
 );
-
-// const operation = (data) => {
-//   return (dispatch, getState) => {
-//     dispatch("p")
-//     fetch().then(() => {dispatch("f")})
-//     .catch(dispatch("r"))
-//   }
-// }
-
-// dispatch(operation(21))
