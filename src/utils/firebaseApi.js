@@ -113,3 +113,4 @@ export const updateUserInfoApi = (idToken) => {
       return { localId, email };
     });
 };
+
