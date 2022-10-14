@@ -17,7 +17,7 @@ import auth from "./auth/authSlice";
 const authPersistConfig = {
   key: "token",
   storage,
-  whitelist: ["idToken"],
+  whitelist: ["idToken", "refreshToken"],
 };
 
 export const store = configureStore({

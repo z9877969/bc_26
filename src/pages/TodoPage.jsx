@@ -1,11 +1,11 @@
-import ToDoForm from "../TodoForm/TodoForm";
-import PriorityFilter from "../PriorityFilter/PriorityFilter";
-import ToDoList from "../TodoList/TodoList";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTodo } from "../../redux/todo/todoOperations";
-import { getIsTodoEmpty} from "../../redux/todo/todoSelectors";
-import { getLocalId } from "../../redux/auth/authSelectors";
+import ToDoForm from "../components/TodoForm/TodoForm";
+import PriorityFilter from "../components/PriorityFilter/PriorityFilter";
+import ToDoList from "../components/TodoList/TodoList";
+import { getTodo } from "../redux/todo/todoOperations";
+import { getIsTodoEmpty} from "../redux/todo/todoSelectors";
+import { getLocalId } from "../redux/auth/authSelectors";
 
 const TodoPage = () => {
   const dispatch = useDispatch();

@@ -9,6 +9,7 @@ const API_KEY = "AIzaSyBNDY0e0QtOlVVeeGDiGbZK1iRiNn2iPSY";
 const baseUrl = {
   DB: "https://bc-26-9c7a4-default-rtdb.firebaseio.com",
   AUTH: "https://identitytoolkit.googleapis.com/v1",
+  REFRESH: "https://securetoken.googleapis.com/v1",
 };
 
 const setBaseUrl = (url) => (axios.defaults.baseURL = url);
@@ -71,11 +72,6 @@ export const registerUserApi = (dataForm) => {
     ...dataForm,
     returnSecureToken: true,
   });
-  //  для ДЗ
-  // .then(res => {
-  //   setToken(res.data.idToken)
-  //   return res
-  // });
 };
 
 // https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
@@ -113,4 +109,19 @@ export const updateUserInfoApi = (idToken) => {
       return { localId, email };
     });
 };
-
+// https://securetoken.googleapis.com/v1/token?key=[API_KEY]
+export const refreshTokenApi = (refreshToken) => {
+  setBaseUrl(baseUrl.REFRESH);
+  return axios.post(
+    "/token",
+    {
+      grant_type: "refresh_token",
+      refresh_token: refreshToken,
+    },
+    {
+      params: {
+        key: API_KEY,
+      },
+    }
+  );
+};
