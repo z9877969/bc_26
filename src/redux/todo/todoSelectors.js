@@ -5,7 +5,7 @@ export const getFilter = (state) => state.todo.filter;
 export const getTheme = (state) => state.todo.theme;
 export const getIsTodoEmpty = (state) => !getTodoItems(state).length;
 export const getEditedItem = (state) => state.todo.editedItem;
-
+export const getIsLoading = (state) => state.todo.isLoading;
 
 export const getFilteredTodo = createSelector(
   [getTodoItems, getFilter],
@@ -14,5 +14,3 @@ export const getFilteredTodo = createSelector(
     return todo.filter((el) => el.priority === filter);
   }
 );
-
-

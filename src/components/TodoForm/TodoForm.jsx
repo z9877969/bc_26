@@ -3,22 +3,21 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTodo, editTodo } from "../../redux/todo/todoOperations";
-import { getEditedItem, getTheme } from "../../redux/todo/todoSelectors";
-import { changeTheme } from "../../redux/todo/todoSlice";
-import { updateTodoApi } from "../../utils/firebaseApi";
+import { getEditedItem, getIsLoading } from "../../redux/todo/todoSelectors";
 import s from "./TodoForm.module.scss";
+
+const initialForm = {
+  date: "",
+  descr: "",
+  priority: "",
+};
 
 const TodoForm = () => {
   const dispatch = useDispatch();
-
-  const theme = useSelector(getTheme);
   const editedItem = useSelector(getEditedItem);
+  const isLoading = useSelector(getIsLoading);
 
-  const [form, setForm] = useState({
-    date: "",
-    descr: "",
-    priority: "",
-  });
+  const [form, setForm] = useState(initialForm);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,29 +26,18 @@ const TodoForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     editedItem ? dispatch(editTodo(form)) : dispatch(addTodo(form));
   };
 
-  console.log("TodoForm");
-
   useEffect(() => {
     editedItem && setForm(editedItem);
-    !editedItem &&
-      setForm({
-        date: "",
-        descr: "",
-        priority: "",
-      });
+    !editedItem && setForm(initialForm);
   }, [editedItem]);
 
   const { date, descr, priority } = form;
 
   return (
     <>
-      <button type="button" onClick={() => dispatch(changeTheme())}>
-        Click
-      </button>
       <form className={s.form} onSubmit={handleSubmit}>
         <label className={s.label}>
           <span> Date </span>
@@ -116,7 +104,7 @@ const TodoForm = () => {
           </div>
         </div>
         <button className={s.submit} type="submit">
-          Ok
+          {isLoading ? "Loading..." : "Add"}
         </button>
       </form>
     </>

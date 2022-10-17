@@ -1,0 +1,17 @@
+/* .todoItems {
+} */
+
+.qweEnter {
+  opacity: 0;
+}
+.qweEnterActive {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+.qweExit {
+  opacity: 1;
+}
+.qweExitActive {
+  opacity: 0;
+  transition: opacity 300ms;
+}

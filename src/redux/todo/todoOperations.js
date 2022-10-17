@@ -11,6 +11,7 @@ export const addTodo = createAsyncThunk(
   async (data, thunkApi) => {
     const { localId, idToken } = thunkApi.getState().auth;
 
+    console.log("operation");
     try {
       const todo = await addTodoApi({ todo: data, localId, idToken });
       return todo;
